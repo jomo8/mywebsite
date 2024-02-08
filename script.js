@@ -97,6 +97,7 @@ function desktopMethod(page, contactButton) {
         document.querySelector('.bottom-nav').classList.add('move-out');
         document.querySelector('.contact-tab').classList.add('move-out');
     } else if (page == 'projects') {
+        alert('This page is under maintenance! Please check back later.');
         document.querySelector('.top-nav-border').classList.add('animation');
         document.querySelector('.tmp-top').classList.add('move-out');
         document.querySelector('.top-container').classList.add('move-out');
