@@ -130,6 +130,7 @@ body {
     width: 100%;
     height: auto;
     margin-bottom: 7vh;
+    transform: rotate(-90deg);
 }
 
 .menu-icon {
