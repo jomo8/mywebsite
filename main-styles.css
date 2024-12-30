@@ -329,6 +329,7 @@ button, a {
     -webkit-appearance: none; 
     -moz-appearance: none;
     appearance: none;
+    z-index: 10;
 }
 }
 
