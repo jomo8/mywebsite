@@ -1,0 +1,408 @@
+@import "tailwindcss";
+
+/* ─── Tailwind v4 Theme Tokens ───────────────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-secondary-50: #a29e9a;
+  --color-secondary-75: #7e766c;
+  --color-secondary-100: #6b645c;
+  --color-secondary-200: #524d47;
+  --color-secondary-300: #393632;
+  --color-secondary-400: #080807;
+
+  --color-accent-200: #e8e8e3;
+  --color-accent-400: #d1d1c7;
+  --color-accent-500: #bfbfb1;
+  --color-accent-600: #8c8c73;
+
+  --color-text-bg: rgb(209, 209, 199);
+
+  /* Fonts */
+  --font-sans: var(--font-montreal), system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --font-montrealMono: var(--font-montreal-mono), system-ui, sans-serif;
+
+  /* Extra breakpoint */
+  --breakpoint-3xl: 1920px;
+}
+
+/* ─── Fluid Design Tokens (matching template exactly) ────────────────── */
+:root {
+  --color-foreground: #171717;
+
+  /* Spacing */
+  --space-3xs: clamp(0.3125rem, 0.3125rem + 0vi, 0.3125rem);
+  --space-2xs: clamp(0.5625rem, 0.5446rem + 0.0893vi, 0.625rem);
+  --space-xs: clamp(0.875rem, 0.8571rem + 0.0893vi, 0.9375rem);
+  --space-sm: clamp(1.125rem, 1.0893rem + 0.1786vi, 1.25rem);
+  --space-md: clamp(1.6875rem, 1.6339rem + 0.2679vi, 1.875rem);
+  --space-lg: clamp(2.25rem, 2.1786rem + 0.3571vi, 2.5rem);
+  --space-xl: clamp(3.375rem, 3.2679rem + 0.5357vi, 3.75rem);
+  --space-2xl: clamp(4.5rem, 4.3571rem + 0.7143vi, 5rem);
+
+  /* Gap */
+  --gap-fluid: clamp(1rem, 0.8571rem + 1.0143vi, 3.5rem);
+
+  /* Typography scale */
+  --text-h1: clamp(3.5rem, 2.3571rem + 5.5143vi, 10.5rem);
+  --text-h1-alt: clamp(3rem, 2.5rem + 3.75vi, 5.625rem);
+  --text-h1-display: clamp(3.2rem, 2.3571rem + 5.5143vi, 6rem);
+  --text-heading-display: clamp(4rem, 1.203rem + 10.0714vw, 10.25rem);
+  --text-heading-1: clamp(3.5rem, 2.3571rem + 5.5143vw, 10.5rem);
+  --text-heading-1--alt: clamp(3rem, 2.25rem + 3.75vi, 5.625rem);
+  --text-heading-2: clamp(1.9531rem, 1.496rem + 2.2854vi, 3.5529rem);
+  --text-heading-3: clamp(1.5625rem, 1.2474rem + 1.5755vi, 2.6653rem);
+  --text-heading-4: clamp(1.25rem, 1.0359rem + 1.0707vi, 1.9995rem);
+  --text-heading-body: clamp(1rem, 0.6071rem + 1.0143vi, 2.25rem);
+  --text-h4: clamp(1.25rem, 1.0359rem + 1.0707vi, 1.9995rem);
+  --text-base: clamp(1rem, 0.9286rem + 0.3571vi, 1.25rem);
+  --text-base-small: 1rem;
+  --text-base-large: clamp(1rem, 0.8571rem + 0.7143vi, 1.5rem);
+  --text--small: clamp(0.7rem, 0.82vw, 0.82rem);
+  --text-menu: clamp(2.5rem, 1.107rem + 3.5714vi, 4.5rem);
+  --text-skill: clamp(0.8rem, 0.5143rem + 0.3571vi, 0.9rem);
+  --text-mono: clamp(0.6rem, 0.5143rem + 0.3571vi, 0.9rem);
+
+  /* Letter-spacing */
+  --tracking-heading: -0.025em;
+  --tracking-mono: 0.06em;
+  --tracking-base: 0em;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-accent-200);
+  color: var(--color-foreground);
+  min-height: 100svh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  text-wrap: pretty;
+  line-height: 132.5%;
+  letter-spacing: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  text-wrap: balance;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+/* ─── Utility Classes (matching template) ────────────────────────────── */
+.section-padding {
+  padding: var(--space-2xl) var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+}
+
+.section-padding-x {
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .section-padding-x {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+}
+
+.section-padding-equal {
+  padding: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .section-padding-equal {
+    padding: var(--space-lg);
+  }
+}
+
+.section-heading {
+  font-size: var(--text-h1-alt);
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.5s;
+}
+
+@media (min-width: 640px) {
+  .section-heading {
+    font-size: var(--text-h1-alt);
+  }
+}
+
+.custom-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-fluid);
+}
+
+@media (min-width: 768px) {
+  .custom-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+.grid-gap {
+  column-gap: var(--gap-fluid);
+  row-gap: var(--gap-fluid);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-color: var(--color-secondary-50);
+  padding: var(--space-3xs) var(--space-2xs);
+  font-size: var(--text-mono);
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 120%;
+  white-space: nowrap;
+}
+
+.leading-base {
+  line-height: 132.5%;
+}
+
+.tracking-base {
+  letter-spacing: 0;
+}
+
+/* ─── Hover link effect ──────────────────────────────────────────────── */
+.hover-link {
+  position: relative;
+  display: block;
+  height: fit-content;
+  overflow: hidden;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+.hover-link .hover-link-top {
+  display: block;
+  width: 100%;
+  transition: transform 0.4s cubic-bezier(0.51, 0.92, 0.24, 1.15);
+  transform: translateY(0);
+}
+
+.hover-link .hover-link-bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.51, 0.92, 0.24, 1.15);
+  transform: translateY(100%);
+}
+
+.hover-link:hover .hover-link-top {
+  transform: translateY(-100%);
+}
+
+.hover-link:hover .hover-link-bottom {
+  transform: translateY(0);
+}
+
+/* ─── Scroll reveal animation ────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Word-by-word text reveal */
+.word-reveal .word {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.word-reveal .word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.word-reveal.revealed .word > span {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Char-by-char heading reveal */
+.char-reveal .char {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.char-reveal.revealed .char {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ─── Preloader ──────────────────────────────────────────────────────── */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #171717;
+  transition: opacity 0.35s ease 1.05s;
+}
+
+.preloader::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -75vmax;
+  width: 150vmax;
+  height: 150vmax;
+  border-radius: 9999px;
+  background: #e8e8e3;
+  transform: translateX(-50%) scale(0);
+  transform-origin: center center;
+  transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.preloader.done {
+  opacity: 0;
+}
+
+.preloader.done::after {
+  transform: translateX(-50%) scale(1);
+}
+
+/* ─── Button hover ───────────────────────────────────────────────────── */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-secondary-300);
+  padding: var(--space-xs) var(--space-md);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #f1f0ed;
+  font-size: var(--text-base);
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .btn-primary {
+    padding: var(--space-sm) var(--space-md);
+  }
+}
+
+.btn-primary .btn-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  overflow: hidden;
+}
+
+.btn-primary .btn-bg span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: translateY(100%);
+  border-radius: 15rem 15rem 0 0;
+  background: var(--color-accent-600);
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.btn-primary:hover .btn-bg span {
+  transform: translateY(0);
+  border-radius: 0;
+}
+
+.btn-primary .btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── Smooth scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-secondary-400);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary-200);
+  border-radius: 3px;
+}
+
+/* ─── Form styles ────────────────────────────────────────────────────── */
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* ─── Image reveal ───────────────────────────────────────────────────── */
+.img-reveal {
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  transform: scale(1.15);
+  transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1),
+    opacity 0.6s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.img-reveal.revealed {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Service card stacking ──────────────────────────────────────────── */
+.service-card {
+  position: sticky;
+  border-top: 1px solid var(--color-secondary-300);
+  background: var(--color-secondary-400);
+}
+
+/* ─── Project image hover ────────────────────────────────────────────── */
+.project-card .project-img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.03);
+}
