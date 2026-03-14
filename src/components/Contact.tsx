@@ -3,6 +3,8 @@
 import { useState, FormEvent } from "react";
 import TextReveal from "./TextReveal";
 
+const CONTACT_EMAIL = "joey.montalto@hotmail.com";
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -14,7 +16,7 @@ export default function Contact() {
     "idle" | "sending" | "sent" | "error"
   >("idle");
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
     setErrorMessage("");
@@ -28,19 +30,20 @@ export default function Contact() {
     }
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const name = formData.name.trim();
+      const email = formData.email.trim();
+      const message = formData.message.trim();
 
-      if (!res.ok) {
-        const payload = (await res.json().catch(() => ({}))) as {
-          error?: string;
-        };
-        throw new Error(payload.error ?? "Failed to send message.");
+      if (!name || !email || !message) {
+        throw new Error("Name, email, and message are required.");
       }
 
+      const subject = encodeURIComponent(`Portfolio message from ${name}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      );
+
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
       setStatus("sent");
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 3000);
@@ -72,6 +75,13 @@ export default function Contact() {
           <h2 className="text-center text-[length:var(--text-h4)] font-medium mb-8 text-[var(--color-accent-200)] tracking-tight">
             Say Hello
           </h2>
+          <p className="mb-5 text-center text-sm text-white/70">
+            This form opens your email app and drafts the message to{" "}
+            <a className="underline underline-offset-4" href={`mailto:${CONTACT_EMAIL}`}>
+              {CONTACT_EMAIL}
+            </a>
+            .
+          </p>
 
           <form
             noValidate
