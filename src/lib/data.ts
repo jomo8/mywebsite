@@ -7,7 +7,7 @@ export const siteConfig = {
     "Open to job opportunities worldwide. Passionate about building polished, intuitive, and thoughtful digital projects that leave a mark.",
   availability: "Available for work",
   availableDate: "Jun'26",
-  profileImage: "/1.webp",
+  profileImage: "/myself.JPG",
 };
 
 export const navLinks = [
