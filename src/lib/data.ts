@@ -4,7 +4,7 @@ export const siteConfig = {
   name: "Joe Montalto",
   role: "AI Engineer & Developer",
   tagline:
-    "Open to job opportunities worldwide. Passionate about building polished, intuitive, and thoughtful digital projects that leave a mark.",
+    "I’m a software engineer that loves to work with the people who use what I build. At Colette, I supported teams across eight restaurant locations and built tools that helped them see reservations, staffing, and sales together.",
   availability: "Available for work",
   availableDate: "Jun'26",
   profileImage: "/myself.JPG",

@@ -15,16 +15,21 @@ export default function Header() {
   return (
     <header className="absolute top-0 z-40 w-full">
       <div className="section-padding-x mt-[var(--space-md)] flex flex-row items-start justify-between gap-x-[var(--gap-fluid)] lg:grid lg:grid-cols-12 lg:items-center">
-        {/* Left – role label */}
-        <div className="col-span-8 flex flex-col items-start gap-x-[var(--space-2xl)] gap-y-[var(--space-3xs)] lg:flex-row lg:items-center">
+        <div className="col-span-8 flex flex-col items-start gap-x-[var(--space-md)] gap-y-[var(--space-2xs)] lg:flex-row lg:items-center">
+          <a href="/jrm_resume_1.pdf" className="btn-primary btn-outline">
+            <span className="btn-bg" aria-hidden="true">
+              <span />
+            </span>
+            <span className="btn-text">View résumé</span>
+          </a>
           <span className="block w-fit max-w-[14ch] text-balance font-medium leading-snug text-[var(--color-secondary-100)] text-[length:var(--text-base)] sm:max-w-max md:text-[length:var(--text-base-small)] 2xl:text-[length:var(--text-base)]">
-            <div
+            <span
               className={`transition-all duration-500 ease-in transform ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
               }`}
             >
               {siteConfig.role}
-            </div>
+            </span>
           </span>
         </div>
 

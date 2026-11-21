@@ -18,8 +18,8 @@ export default function Hero() {
 
   return (
     <section className="mb-[-100svh] py-0">
-      <div className="section-padding-equal sticky top-0 flex h-svh items-end">
-        <div className="relative flex w-full flex-col md:gap-y-[var(--space-lg)]">
+      <div className="section-padding-equal sticky top-0 flex min-h-svh items-end">
+        <div className="relative flex w-full flex-col pt-40 md:gap-y-[var(--space-lg)] lg:pt-24">
           {/* ── Hero Heading ── */}
           <h1 className="overflow-clip text-center md:text-center">
             {/* Desktop: single line */}
@@ -47,7 +47,7 @@ export default function Hero() {
             </span>
 
             {/* Mobile: stacked */}
-            <span className="flex flex-col items-center text-center text-[length:var(--text-heading-display)] font-semibold uppercase leading-[80%] tracking-[var(--tracking-heading)] text-[var(--color-secondary-400)] md:hidden">
+            <span className="flex flex-col items-center whitespace-nowrap text-center text-[length:min(var(--text-heading-display),15vw)] font-semibold uppercase leading-[80%] tracking-[var(--tracking-heading)] text-[var(--color-secondary-400)] md:hidden">
               <div className="overflow-hidden">
                 {firstName.split("").map((char, i) => (
                   <span
@@ -115,25 +115,14 @@ export default function Hero() {
 
                 {/* Tagline + CTA */}
                 <div className="flex flex-col gap-y-[var(--space-sm)] md:gap-y-[var(--space-md)]">
-                  <div className="w-full max-w-[32ch] text-balance text-[length:var(--text-base)] font-medium leading-snug text-[var(--color-secondary-100)] xl:text-[length:var(--text-base-large)] 3xl:text-[length:var(--text-heading-body)]">
-                    <div className="overflow-hidden">
-                      <span>
-                        {siteConfig.tagline.split(" ").map((word, i) => (
-                          <span
-                            key={i}
-                            className={`inline-block pr-2 transition-all duration-600 ease-out ${
-                              show
-                                ? "opacity-100 translate-y-0"
-                                : "opacity-0 translate-y-full"
-                            }`}
-                            style={{ transitionDelay: `${700 + i * 30}ms` }}
-                          >
-                            {word}
-                          </span>
-                        ))}
-                      </span>
-                    </div>
-                  </div>
+                  <p
+                    className={`max-w-[48ch] text-[length:var(--text-base)] font-medium leading-snug text-[var(--color-secondary-100)] transition-opacity duration-600 xl:text-[length:var(--text-base-large)] 3xl:text-[length:var(--text-heading-body)] ${
+                      show ? "opacity-100" : "opacity-0"
+                    }`}
+                    style={{ transitionDelay: "700ms" }}
+                  >
+                    {siteConfig.tagline}
+                  </p>
 
                   {/* CTA Button */}
                   <div className="overflow-clip">
