@@ -271,29 +271,21 @@ h5 {
 
 /* ─── Preloader ──────────────────────────────────────────────────────── */
 .preloader {
+  --bubble-duration: 1.2s;
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: 100;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  background: #171717;
-  transition: opacity 0.35s ease 1.05s;
+  background: var(--color-foreground);
+  transition: opacity 0.35s ease var(--bubble-duration);
 }
 
 .preloader::after {
   content: "";
   position: absolute;
-  left: 50%;
-  bottom: -75vmax;
-  width: 150vmax;
-  height: 150vmax;
-  border-radius: 9999px;
-  background: #e8e8e3;
-  transform: translateX(-50%) scale(0);
-  transform-origin: center center;
-  transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+  inset: 0;
+  background: var(--color-accent-200);
+  clip-path: circle(0vmax at 50% 100%);
+  transition: clip-path var(--bubble-duration) cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .preloader.done {
@@ -301,7 +293,8 @@ h5 {
 }
 
 .preloader.done::after {
-  transform: translateX(-50%) scale(1);
+  /* From bottom center, even a square viewport's top corners are under 112vmax away. */
+  clip-path: circle(115vmax at 50% 100%);
 }
 
 /* ─── Button hover ───────────────────────────────────────────────────── */

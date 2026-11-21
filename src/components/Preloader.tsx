@@ -8,16 +8,19 @@ export default function Preloader() {
 
   useEffect(() => {
     // Let the initial dark screen settle, then fire the bubble reveal.
-    const t1 = setTimeout(() => setReveal(true), 120);
-    // Remove overlay once the reveal has fully covered the screen.
-    const t2 = setTimeout(() => setHidden(true), 1700);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    const timer = setTimeout(() => setReveal(true), 120);
+    return () => clearTimeout(timer);
   }, []);
 
   if (hidden) return null;
 
-  return <div className={`preloader ${reveal ? "done" : ""}`} />;
+  return (
+    <div
+      aria-hidden="true"
+      className={`preloader ${reveal ? "done" : ""}`}
+      onTransitionEnd={(event) => {
+        if (event.propertyName === "opacity") setHidden(true);
+      }}
+    />
+  );
 }
