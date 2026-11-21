@@ -1,19 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { navLinks, siteConfig } from "@/lib/data";
+import { type KeyboardEvent, useEffect, useRef, useState } from "react";
+import { navLinks, siteConfig, socials } from "@/lib/data";
 
 const menuItems = [{ label: "Home", href: "#" }, ...navLinks];
-
-const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com" },
-  { label: "Github", href: "https://github.com" },
-  { label: "Leetcode", href: "https://leetcode.com" },
-];
 
 export default function FloatingMenu() {
   const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const workSection = document.getElementById("Works");
@@ -27,7 +23,6 @@ export default function FloatingMenu() {
     updateVisibility();
     window.addEventListener("scroll", updateVisibility, { passive: true });
     window.addEventListener("resize", updateVisibility);
-
     return () => {
       window.removeEventListener("scroll", updateVisibility);
       window.removeEventListener("resize", updateVisibility);
@@ -35,29 +30,54 @@ export default function FloatingMenu() {
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      // Prevent fixed elements (like the menu button) from shifting when
-      // the scrollbar disappears on open.
-      const scrollbarWidth =
-        window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    }
+    if (!isOpen) return;
+
+    const { overflow, paddingRight } = document.body.style;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    buttonRef.current?.focus({ preventScroll: true });
 
     return () => {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
+      document.body.style.overflow = overflow;
+      document.body.style.paddingRight = paddingRight;
     };
   }, [isOpen]);
 
-  const closeMenu = () => setIsOpen(false);
+  function closeMenu() {
+    setIsOpen(false);
+    buttonRef.current?.focus({ preventScroll: true });
+  }
+
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (!isOpen) return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeMenu();
+      return;
+    }
+    if (event.key !== "Tab") return;
+
+    const links = panelRef.current?.querySelectorAll<HTMLAnchorElement>("a[href]");
+    const last = links?.item(links.length - 1);
+    if (event.shiftKey && event.target === buttonRef.current) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && event.target === last) {
+      event.preventDefault();
+      buttonRef.current?.focus();
+    }
+  }
 
   return (
-    <>
+    <div
+      role={isOpen ? "dialog" : undefined}
+      aria-modal={isOpen || undefined}
+      aria-label={isOpen ? "Navigation" : undefined}
+      onKeyDown={handleKeyDown}
+    >
       <button
+        ref={buttonRef}
         type="button"
         aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
         aria-expanded={isOpen}
@@ -78,82 +98,55 @@ export default function FloatingMenu() {
         />
       </button>
 
-      {/* ── Backdrop (blur only, no dark tint) ── */}
       <div
-        className={`fixed inset-0 z-[99999998] transition-all duration-500 ${
-          isOpen
-            ? "pointer-events-auto opacity-100 backdrop-blur-xl"
-            : "pointer-events-none opacity-0 backdrop-blur-none"
+        aria-hidden="true"
+        className={`fixed inset-0 z-[99999998] bg-black/20 backdrop-blur transition-opacity duration-300 motion-reduce:transition-none ${
+          isOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={closeMenu}
       />
 
-      {/* ── Slide-in panel ── */}
       <aside
         id="floating-navigation"
+        ref={panelRef}
         inert={!isOpen}
-        className={`fixed right-0 top-0 z-[99999999] flex h-screen w-screen justify-end text-[var(--color-accent-200)] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isOpen
-            ? "pointer-events-auto translate-x-0 opacity-100"
-            : "pointer-events-none translate-x-full opacity-0"
+        className={`fixed top-0 right-0 z-[99999999] flex h-dvh w-full max-w-xl flex-col overflow-y-auto bg-[var(--color-secondary-400)] px-[var(--space-md)] pt-24 pb-[var(--space-lg)] text-[var(--color-accent-200)] transition-transform duration-300 motion-reduce:transition-none sm:px-[var(--space-lg)] ${
+          isOpen ? "translate-x-0" : "pointer-events-none translate-x-full"
         }`}
       >
-        <div className="relative z-20 flex h-full w-full max-w-2xl flex-col justify-end overflow-hidden rounded-md xl:max-w-3xl 3xl:max-w-4xl">
-          <nav className="relative h-full px-[var(--space-md)] text-[length:var(--text-menu)] font-[700] uppercase leading-[100%] sm:px-[var(--space-xl)]">
-            <ul className="flex h-full flex-col justify-center gap-y-[var(--space-3xs)]">
-              {menuItems.map((item) => (
-                <li
-                  key={item.label}
-                  className="relative flex w-fit items-center"
+        <nav aria-label="Floating navigation" className="my-auto py-[var(--space-md)]">
+          <ul className="grid gap-y-[var(--space-3xs)]">
+            {menuItems.map((item) => (
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  onClick={closeMenu}
+                  className="inline-block text-[length:var(--text-menu)] leading-tight font-bold uppercase underline-offset-4 hover:underline focus-visible:underline"
                 >
-                  <a
-                    href={item.href}
-                    onClick={closeMenu}
-                    className="relative inline-block w-fit text-[length:var(--text-menu)] text-[var(--color-accent-200)] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[var(--color-accent-200)] after:transition-all after:duration-500 after:content-[''] hover:after:w-full"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          <div className="flex flex-col items-start justify-start gap-y-[var(--space-md)] px-[var(--space-md)] pb-[var(--space-md)] sm:px-[var(--space-xl)] sm:pb-[var(--space-xl)]">
-            <div className="flex flex-col">
-              <span className="text-left text-[length:var(--text-base-small)] font-bold text-[var(--color-secondary-50)]">
-                EMAIL ADDRESS
-              </span>
-              <a
-                href={`mailto:${siteConfig.contactEmail}`}
-                onClick={closeMenu}
-                className="hover-link link-text relative block h-fit overflow-hidden font-mono font-medium"
-              >
-                <span className="hover-link-top">
-                  {siteConfig.contactEmail}
-                </span>
-                <span aria-hidden="true" className="hover-link-bottom">
-                  {siteConfig.contactEmail}
-                </span>
-              </a>
-            </div>
-
-            <ul className="flex flex-nowrap justify-start gap-x-[var(--space-2xs)]">
-              {socialLinks.map((social) => (
-                <li key={social.label}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[length:var(--text-base-small)] font-medium text-[var(--color-accent-200)] underline-offset-4 hover:underline"
-                  >
-                    {social.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="border-t border-[var(--color-secondary-200)] pt-[var(--space-sm)]">
+          <a
+            href={`mailto:${siteConfig.contactEmail}`}
+            onClick={closeMenu}
+            className="break-all text-[length:var(--text-base)] underline underline-offset-4"
+          >
+            {siteConfig.contactEmail}
+          </a>
+          <ul className="mt-[var(--space-xs)] flex flex-wrap gap-x-[var(--space-sm)] text-[var(--color-accent-500)]">
+            {socials.map(({ label, href }) => (
+              <li key={href}>
+                <a href={href} onClick={closeMenu} className="underline-offset-4 hover:underline">{label}</a>
+              </li>
+            ))}
+          </ul>
         </div>
       </aside>
-    </>
+    </div>
   );
 }

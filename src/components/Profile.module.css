@@ -1,0 +1,122 @@
+.section {
+  padding-inline: var(--space-md);
+  color: var(--color-accent-200);
+  background: #20211e;
+  font-family: var(--font-inter), Arial, sans-serif;
+}
+
+.columns, .contact {
+  display: grid;
+  max-width: 76rem;
+  margin-inline: auto;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-2xl);
+}
+
+.group {
+  min-width: 0;
+  padding-top: var(--space-sm);
+  border-top: 1px solid #55574e;
+}
+
+.group h2 {
+  margin-bottom: var(--space-md);
+  font-size: var(--text-heading-3);
+  font-weight: 500;
+}
+
+.introduction {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  font-size: var(--text-base);
+}
+
+.portrait {
+  width: clamp(4rem, 8vw, 7rem);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 36% center;
+  flex: none;
+  filter: grayscale(1);
+}
+
+.details {
+  display: grid;
+  gap: var(--space-sm);
+  font-size: var(--text-base);
+  line-height: 1.45;
+}
+
+.details dt {
+  font-weight: 600;
+}
+
+.details dd {
+  max-width: 50ch;
+  margin-top: 0.15em;
+  color: var(--color-accent-500);
+}
+
+.contact {
+  align-items: start;
+  gap: var(--space-md);
+  border-top: 1px solid #55574e;
+  padding-top: var(--space-sm);
+}
+
+.contact .group {
+  border: 0;
+  padding: 0;
+}
+
+.contactIntro {
+  max-width: 39ch;
+  font-size: var(--text-base-large);
+}
+
+.contactLinks {
+  min-width: 0;
+}
+
+.email {
+  font-size: clamp(1.15rem, 2.25vw, 2.1rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+}
+
+.profiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-2xs);
+  color: var(--color-accent-500);
+}
+
+.contactLinks a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.contactLinks a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.contactLinks a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-inline: var(--space-lg);
+  }
+
+  .columns, .contact {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    column-gap: var(--space-2xl);
+  }
+}

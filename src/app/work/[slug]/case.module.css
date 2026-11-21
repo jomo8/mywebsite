@@ -1,0 +1,140 @@
+.page {
+  min-height: 100svh;
+  padding: clamp(1.25rem, 4vw, 3.5rem) clamp(1.25rem, 5vw, 5rem);
+  background: #20211e;
+  color: var(--color-accent-200);
+  font-family: var(--font-inter), Arial, sans-serif;
+}
+
+.article {
+  max-width: 67rem;
+  margin-inline: auto;
+}
+
+.back,
+.figure a,
+.footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: 2.75rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.27em;
+  text-decoration-color: #87877a;
+}
+
+.back {
+  text-decoration: none;
+}
+
+.article a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.27em;
+  text-decoration-color: currentColor;
+}
+
+.article a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.header {
+  margin-top: clamp(1.25rem, 4vw, 3rem);
+  border-top: 1px solid #55574e;
+}
+
+.metadata {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding-top: 1.1rem;
+  color: var(--color-accent-500);
+  font: 400 0.79rem/1.4 var(--font-mono);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.header h1 {
+  max-width: 21ch;
+  margin-block: clamp(1.5rem, 4vw, 3rem) 1rem;
+  font-size: clamp(2.2rem, 5.2vw, 4.65rem);
+  font-weight: 500;
+  line-height: 1.03;
+  letter-spacing: -0.047em;
+}
+
+.summary {
+  max-width: 62ch;
+  color: var(--color-accent-400);
+  font-size: clamp(1.08rem, 1.8vw, 1.42rem);
+  line-height: 1.5;
+}
+
+.figure {
+  margin-block: clamp(2rem, 5vw, 3.75rem);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.figure figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.35rem 2rem;
+  margin-top: 0.8rem;
+  color: var(--color-accent-500);
+  font-size: 0.94rem;
+}
+
+.figure figcaption p {
+  max-width: 65ch;
+  line-height: 1.5;
+}
+
+.figure a {
+  color: var(--color-accent-200);
+}
+
+.narrative {
+  border-top: 1px solid #55574e;
+  padding-block: clamp(1.5rem, 4vw, 3rem);
+}
+
+.narrative h2 {
+  max-width: 24ch;
+  margin-bottom: 0.9rem;
+  font-size: clamp(1.65rem, 2.5vw, 2.45rem);
+  font-weight: 500;
+  line-height: 1.12;
+}
+
+.narrative p {
+  max-width: 62ch;
+  color: var(--color-accent-400);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1.5rem;
+  border-top: 1px solid #55574e;
+  padding-top: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .narrative {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: 3rem;
+  }
+}

@@ -26,11 +26,14 @@
   font-weight: 500;
 }
 
-.meta {
-  color: var(--color-accent-500);
+.meta, .figureLabel {
   font: 400 clamp(0.75rem, 1.1vw, 0.9rem) / 1.4 var(--font-mono);
   letter-spacing: 0.07em;
   text-transform: uppercase;
+}
+
+.meta, .summary {
+  color: var(--color-accent-500);
 }
 
 .feature, .supporting {
@@ -38,8 +41,31 @@
   gap: var(--space-sm);
 }
 
+.card {
+  display: block;
+  min-width: 0;
+}
+
+.feature, .card, .more a {
+  color: inherit;
+}
+
+.feature:focus-visible, .card:focus-visible, .more a:focus-visible {
+  outline: 2px solid #f5efd4;
+  outline-offset: 5px;
+}
+
 .supporting, .more {
   margin-top: var(--space-lg);
+}
+
+.supporting {
+  align-items: start;
+  row-gap: var(--space-lg);
+}
+
+.card .caption {
+  margin-top: var(--space-sm);
 }
 
 .caption h3 {
@@ -54,77 +80,154 @@
 }
 
 .summary {
-  max-width: 38ch;
-  color: var(--color-accent-500);
+  max-width: 44ch;
   font-size: var(--text-base);
+  line-height: 1.5;
 }
 
-.briefPreview, .flowPreview, .ratioPreview {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.briefPreview {
-  aspect-ratio: 1.85;
-  background: #384533;
-}
-
-.paper {
-  width: 70%;
-  padding: 4% 5%;
-  transform: rotate(-2deg);
-  background: #292e27;
-}
-
-.paperTitle {
-  display: block;
-  font: 400 clamp(1.2rem, 2.5vw, 2.4rem) / 1.2 Georgia, serif;
-  margin-bottom: 0.25em;
-}
-
-.paperRow {
-  display: block;
-  border-top: 1px solid #606655;
-  padding-block: 0.35em;
-  color: var(--color-accent-400);
-  font-size: clamp(0.75rem, 1.15vw, 1rem);
-}
-
-.supporting {
-  row-gap: var(--space-lg);
-}
-
-.supporting .caption {
+.readCase {
+  display: inline-block;
   margin-top: var(--space-sm);
+  font-weight: 600;
 }
 
-.flowPreview, .ratioPreview {
-  aspect-ratio: 3.1;
-  color: var(--color-accent-200);
+.titleArrow {
+  display: inline-block;
+  color: var(--color-accent-500);
+  font-size: 0.75em;
 }
 
-.flowPreview {
-  gap: 0.5em;
-  background: #34403e;
-  font: 400 clamp(0.75rem, 1.5vw, 1.25rem) / 1.3 var(--font-mono);
+.feature:is(:hover, :focus-visible) .readCase,
+.card:is(:hover, :focus-visible) h3,
+.more a:is(:hover, :focus-visible) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
 }
 
-.flowPreview span {
-  border: 1px solid var(--color-accent-500);
-  padding: 0.35em 0.55em;
+.staffingPreview, .engineeringPreview, .analysisPreview {
+  padding: clamp(0.875rem, 1.8vw, 1.75rem);
+  min-width: 0;
 }
 
-.ratioPreview {
+.staffingPreview {
+  align-self: center;
+  container-type: inline-size;
+  background: #3a4835;
+}
+
+.figureLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  margin-bottom: 0.75rem;
+  color: #eeeee5;
+  font-size: clamp(0.69rem, 0.9vw, 0.78rem);
+  letter-spacing: 0.035em;
+}
+
+.figureLabel span:last-child {
+  color: #d6dacb;
+}
+
+.tableCrop, .chartCrop {
+  position: relative;
+  overflow: hidden;
+  background: #fcfcfa;
+}
+
+/* Enlarge the nightly rows without shrinking the whole report into a thumbnail. */
+.tableCrop {
+  aspect-ratio: 1.68;
+}
+
+.tableCrop img {
+  display: block;
+  width: 190%;
+  max-width: none;
+  height: auto;
+}
+
+@container (max-width: 24rem) {
+  .tableCrop {
+    aspect-ratio: 1.47;
+  }
+
+  .tableCrop img {
+    width: 380%;
+  }
+}
+
+.engineeringPreview, .analysisPreview {
+  display: flex;
   flex-direction: column;
-  background: #453f36;
-  font: 400 clamp(1.25rem, 2.4vw, 2rem) / 1.3 Georgia, serif;
 }
 
-.ratioPreview span:first-child {
-  border-bottom: 1px solid currentColor;
-  padding: 0 0.35em 0.12em;
-  margin-bottom: 0.12em;
+.engineeringPreview {
+  background: #34413d;
+}
+
+.flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(0.875rem, 1.6vw, 1.5rem);
+  flex: 1;
+  min-height: 7.5rem;
+  margin: 0;
+  list-style: none;
+}
+
+.flow li {
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 3.2em;
+  padding: 0.35em;
+  border: 1px solid #b6c4b7;
+  background: #293530;
+  color: #f2f1e8;
+  text-align: center;
+  font: 500 clamp(0.78rem, 1.2vw, 1.15rem) / 1.25 var(--font-mono);
+}
+
+.flow li:not(:last-child)::after {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: clamp(0.875rem, 1.6vw, 1.5rem);
+  border-top: 1px solid #b6c4b7;
+  content: "";
+}
+
+.flow li:not(:first-child)::before {
+  position: absolute;
+  top: 50%;
+  left: -0.35rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-top: 1px solid #b6c4b7;
+  border-right: 1px solid #b6c4b7;
+  transform: translateY(-42%) rotate(45deg);
+  content: "";
+}
+
+.analysisPreview {
+  background: #494237;
+}
+
+/* Keep the horizontal measure, day labels and annotation together in the crop. */
+.chartCrop {
+  aspect-ratio: 2.61;
+}
+
+.chartCrop img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: translateY(-19%);
 }
 
 .more li {
@@ -139,11 +242,6 @@
   padding-block: var(--space-sm);
   font-size: var(--text-heading-4);
   line-height: 1.2;
-}
-
-.more a:is(:hover, :focus-visible) {
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
 }
 
 .more a span {
@@ -164,7 +262,11 @@
     align-items: center;
   }
 
-  .supporting article:last-child {
-    padding-top: var(--space-md);
+  .engineeringPreview, .analysisPreview {
+    aspect-ratio: 1.82;
+  }
+
+  .analysisPreview {
+    justify-content: center;
   }
 }

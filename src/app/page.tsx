@@ -12,15 +12,14 @@ export default function Home() {
     <>
       <Preloader />
       <Header />
-      <Hero />
-      <FloatingMenu />
-
-      <div className="relative z-[10] min-h-screen w-full overflow-x-clip">
+      <main>
+        <Hero />
+        <FloatingMenu />
         <Works />
         <About />
         <Contact />
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </>
   );
 }

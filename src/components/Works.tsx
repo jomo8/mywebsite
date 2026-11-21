@@ -1,13 +1,86 @@
-import { moreProjects, selectedWork } from "@/lib/data";
+import Image from "next/image";
+import Link from "next/link";
+import { casePath, moreProjects, selectedWork, type CaseStudy } from "@/lib/data";
 import styles from "./Works.module.css";
 
-function StudyCaption({ study }: { study: typeof selectedWork.featured }) {
+function StaffingPreview({ study }: { study: CaseStudy }) {
   return (
-    <div className={styles.caption}>
-      <p className={styles.meta}>{study.category}</p>
-      <h3>{study.title}</h3>
-      <p className={styles.summary}>{study.summary}</p>
-    </div>
+    <figure className={styles.staffingPreview}>
+      <figcaption className={styles.figureLabel}>
+        <span>Weekly staffing forecast</span>
+        <span>Synthetic data</span>
+      </figcaption>
+      <div className={styles.tableCrop}>
+        <Image
+          src={study.figure.src}
+          width={study.figure.width}
+          height={study.figure.height}
+          alt="Detail from the recreated weekly staffing forecast showing projected revenue by night."
+        />
+      </div>
+    </figure>
+  );
+}
+
+function EngineeringPreview() {
+  return (
+    <figure className={styles.engineeringPreview}>
+      <figcaption className={styles.figureLabel}>Import workflow</figcaption>
+      <ol className={styles.flow}>
+        <li>Emailed export</li>
+        <li>Validation</li>
+        <li>Report data</li>
+      </ol>
+    </figure>
+  );
+}
+
+function AnalysisPreview({ study }: { study: CaseStudy }) {
+  return (
+    <figure className={styles.analysisPreview}>
+      <figcaption className={styles.figureLabel}>
+        <span>Labor was 24.7% of sales</span>
+        <span>Oct 1–5, 2026 · Synthetic data</span>
+      </figcaption>
+      <div className={styles.chartCrop}>
+        <Image
+          src={study.figure.src}
+          width={study.figure.width}
+          height={study.figure.height}
+          alt={study.figure.alt}
+        />
+      </div>
+    </figure>
+  );
+}
+
+function CaseCard({
+  study,
+  featured = false,
+  children,
+}: {
+  study: CaseStudy;
+  featured?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={casePath(study.slug)}
+      className={featured ? styles.feature : styles.card}
+      aria-labelledby={study.slug}
+      aria-describedby={`${study.slug}-summary`}
+    >
+      {children}
+      <div className={styles.caption}>
+        <p className={styles.meta}>{study.category}</p>
+        <h3 id={study.slug}>
+          {study.title}
+          {!featured && <span aria-hidden="true" className={styles.titleArrow}> ↗</span>}
+        </h3>
+        <p className={styles.summary} id={`${study.slug}-summary`}>{study.summary}</p>
+        {featured && <span className={styles.readCase}>Read the case study <span aria-hidden="true">→</span></span>}
+      </div>
+    </Link>
   );
 }
 
@@ -17,35 +90,20 @@ export default function Works() {
       <div className={styles.content}>
         <div className={styles.sectionHeading}>
           <h2 id="work-heading">Selected work</h2>
-          <p className={styles.meta}>Case studies in progress</p>
+          <p className={styles.meta}>Colette · 2026</p>
         </div>
 
-        <article className={styles.feature}>
-          <div className={styles.briefPreview} aria-hidden="true">
-            <div className={styles.paper}>
-              <span className={styles.paperTitle}>Project brief</span>
-              {["Scope", "Approach", "Outcomes"].map((label) => (
-                <span key={label} className={styles.paperRow}>{label}</span>
-              ))}
-            </div>
-          </div>
-          <StudyCaption study={selectedWork.featured} />
-        </article>
+        <CaseCard study={selectedWork.featured} featured>
+          <StaffingPreview study={selectedWork.featured} />
+        </CaseCard>
 
         <div className={styles.supporting}>
-          <article>
-            <div className={styles.flowPreview} aria-hidden="true">
-              <span>Input</span> → <span>Process</span> → <span>Output</span>
-            </div>
-            <StudyCaption study={selectedWork.engineering} />
-          </article>
-          <article>
-            <div className={styles.ratioPreview} aria-hidden="true">
-              <span>Measure</span>
-              <span>Baseline</span>
-            </div>
-            <StudyCaption study={selectedWork.analysis} />
-          </article>
+          <CaseCard study={selectedWork.engineering}>
+            <EngineeringPreview />
+          </CaseCard>
+          <CaseCard study={selectedWork.analysis}>
+            <AnalysisPreview study={selectedWork.analysis} />
+          </CaseCard>
         </div>
 
         <div className={styles.more}>
