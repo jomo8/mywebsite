@@ -79,68 +79,26 @@ export default function FloatingMenu() {
 
   return (
     <>
-      {/* ── Button wrapper with accent rings ── */}
-      <div
-        className={`fixed right-8 top-9 z-[999999999] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isVisible
-            ? "pointer-events-auto scale-100 opacity-100"
-            : "pointer-events-none scale-0 opacity-0"
-        }`}
+      <button
+        type="button"
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={isOpen}
+        aria-controls="floating-navigation"
+        disabled={!isVisible && !isOpen}
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="fixed top-[var(--space-md)] right-[var(--space-md)] z-[999999999] grid size-12 cursor-pointer place-items-center rounded-full border border-black/20 bg-[var(--color-accent-200)] text-[var(--color-foreground)] shadow-sm transition-[opacity,background-color] duration-200 hover:bg-[var(--color-accent-400)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent-600)] disabled:pointer-events-none disabled:opacity-0 motion-reduce:transition-none md:right-[var(--space-lg)]"
       >
-        {/* Outer accent ring */}
-        <div
-          className={`absolute inset-0 rounded-full bg-[#3A3A37] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-            isOpen ? "scale-[2.6] opacity-100" : "scale-100 opacity-0"
-          }`}
+        <span
+          aria-hidden="true"
+          className="col-start-1 row-start-1 h-0.5 w-5 rounded-full bg-current transition-transform duration-200 motion-reduce:transition-none"
+          style={{ transform: isOpen ? "rotate(45deg)" : "translateY(-3px)" }}
         />
-        {/* Inner accent ring */}
-        <div
-          className={`absolute inset-0 rounded-full bg-[#232320] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-            isOpen
-              ? "scale-[1.8] opacity-100 delay-[50ms]"
-              : "scale-100 opacity-0"
-          }`}
+        <span
+          aria-hidden="true"
+          className="col-start-1 row-start-1 h-0.5 w-5 rounded-full bg-current transition-transform duration-200 motion-reduce:transition-none"
+          style={{ transform: isOpen ? "rotate(-45deg)" : "translateY(3px)" }}
         />
-        <button
-          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={isOpen}
-          onClick={() => setIsOpen((prev) => !prev)}
-          className="relative z-10 rounded-full bg-[var(--color-accent-400)] p-3 shadow-lg"
-        >
-          <svg width="35" height="35" viewBox="0 0 35 35">
-            <line
-              x1="2"
-              y1="13.5"
-              x2="33"
-              y2="13.5"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              className="origin-center transition-all duration-300"
-              style={{
-                transformOrigin: "17.5px 17.5px",
-                transform: isOpen ? "translateY(.2vw) rotate(45deg)" : "none",
-              }}
-            />
-            <line
-              x1="2"
-              y1="21.5"
-              x2="33"
-              y2="21.5"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              className="origin-center transition-all duration-300"
-              style={{
-                transformOrigin: "17.5px 17.5px",
-                transform: isOpen
-                  ? "translateY(-.2vw) rotate(-45deg)"
-                  : "none",
-              }}
-            />
-          </svg>
-        </button>
-      </div>
+      </button>
 
       {/* ── Backdrop (blur only, no dark tint) ── */}
       <div
@@ -154,6 +112,8 @@ export default function FloatingMenu() {
 
       {/* ── Slide-in panel ── */}
       <aside
+        id="floating-navigation"
+        inert={!isOpen}
         className={`fixed right-0 top-0 z-[99999999] flex h-screen w-screen justify-end text-[var(--color-accent-200)] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isOpen
             ? "pointer-events-auto translate-x-0 opacity-100"
@@ -186,15 +146,15 @@ export default function FloatingMenu() {
                 EMAIL ADDRESS
               </span>
               <a
-                href="mailto:joseph.montalto@tufts.edu"
+                href="mailto:josephmontalto10@gmail.com"
                 onClick={closeMenu}
                 className="hover-link link-text relative block h-fit overflow-hidden font-mono font-medium"
               >
                 <span className="hover-link-top">
-                  joseph.montalto@tufts.edu
+                  josephmontalto10@gmail.com
                 </span>
                 <span aria-hidden="true" className="hover-link-bottom">
-                  joseph.montalto@tufts.edu
+                  josephmontalto10@gmail.com
                 </span>
               </a>
             </div>
