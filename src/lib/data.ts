@@ -5,7 +5,7 @@ export const siteConfig = {
   tagline:
     "I’m a software engineer that loves to work with the people who use what I build. I've built tools that automated forecasting, staffing, and sales reporting for restaurant owners.",
   availability: "Available for work",
-  availableDate: "Jun'26",
+  availableDate: "DEC'26",
   profileImage: "/myself.JPG",
 };
 

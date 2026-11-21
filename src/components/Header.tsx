@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import HoverLink from "@/components/HoverLink";
 import { navLinks } from "@/lib/data";
 
 export default function Header() {
@@ -14,8 +14,8 @@ export default function Header() {
 
   return (
     <header className="absolute top-0 z-40 w-full">
-      <div className="section-padding-x mt-[var(--space-md)] flex flex-row items-start justify-between gap-x-[var(--gap-fluid)] lg:grid lg:grid-cols-12 lg:items-center">
-        <a href="/jrm_resume_1.pdf" className="btn-primary btn-outline col-span-8 justify-self-start">
+      <div className="section-padding-x mt-[var(--space-md)] flex items-start justify-between gap-x-[var(--gap-fluid)] lg:items-center">
+        <a href="/jrm_resume_1.pdf" className="btn-primary btn-outline">
           <span className="btn-bg" aria-hidden="true">
             <span />
           </span>
@@ -23,10 +23,10 @@ export default function Header() {
         </a>
 
         {/* Right – navigation */}
-        <nav className="col-span-4 flex justify-end text-[length:var(--text-base)] md:text-[length:var(--text-base-small)] 2xl:text-[length:var(--text-base)]">
-          <ul className="m-0 flex flex-col items-start text-[var(--color-secondary-100)] gap-y-[var(--space-3xs)] md:flex-row md:items-center md:gap-x-[var(--space-2xs)] md:gap-y-0 font-medium">
+        <nav>
+          <ul className="m-0 flex flex-col items-start text-[var(--color-secondary-100)] gap-y-[var(--space-3xs)] md:flex-row md:items-center md:gap-x-[var(--space-2xs)] md:gap-y-0">
             {navLinks.map((link, i) => (
-              <div
+              <li
                 key={link.label}
                 className={`transition-all duration-500 ease-in transform ${
                   visible
@@ -35,21 +35,8 @@ export default function Header() {
                 }`}
                 style={{ transitionDelay: `${1500 + i * 80}ms` }}
               >
-                <li className="flex leading-normal md:leading-snug">
-                  <Link
-                    href={link.href}
-                    className="hover-link"
-                  >
-                    <span className="hover-link-top">{link.label}</span>
-                    <span
-                      aria-hidden="true"
-                      className="hover-link-bottom"
-                    >
-                      {link.label}
-                    </span>
-                  </Link>
-                </li>
-              </div>
+                <HoverLink href={link.href} label={link.label} className="header-menu-link" />
+              </li>
             ))}
           </ul>
         </nav>

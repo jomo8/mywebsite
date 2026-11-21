@@ -297,6 +297,17 @@ h5 {
   clip-path: circle(115vmax at 50% 100%);
 }
 
+/* Shared typography for buttons and header menu links */
+.btn-primary,
+.header-menu-link {
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 /* ─── Button hover ───────────────────────────────────────────────────── */
 .btn-primary {
   position: relative;
@@ -307,11 +318,7 @@ h5 {
   border-radius: 9999px;
   background: var(--color-secondary-300);
   padding: var(--space-xs) var(--space-md);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
   color: #f1f0ed;
-  font-size: var(--text-base);
   transition: transform 0.3s ease;
 }
 
