@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { siteConfig } from "@/lib/data";
 import TextReveal from "./TextReveal";
-
-const CONTACT_EMAIL = "joey.montalto@hotmail.com";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -43,7 +42,7 @@ export default function Contact() {
         `Name: ${name}\nEmail: ${email}\n\n${message}`,
       );
 
-      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:${siteConfig.contactEmail}?subject=${subject}&body=${body}`;
       setStatus("sent");
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 3000);
@@ -77,8 +76,8 @@ export default function Contact() {
           </h2>
           <p className="mb-5 text-center text-sm text-white/70">
             This form opens your email app and drafts the message to{" "}
-            <a className="underline underline-offset-4" href={`mailto:${CONTACT_EMAIL}`}>
-              {CONTACT_EMAIL}
+            <a className="underline underline-offset-4" href={`mailto:${siteConfig.contactEmail}`}>
+              {siteConfig.contactEmail}
             </a>
             .
           </p>

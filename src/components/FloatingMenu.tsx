@@ -1,15 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { navLinks, siteConfig } from "@/lib/data";
 
-const menuItems = [
-  { label: "Home", href: "#" },
-  { label: "Services", href: "#Services" },
-  { label: "Works", href: "#Works" },
-  { label: "About", href: "#About" },
-  { label: "Contact", href: "#Contact" },
-];
+const menuItems = [{ label: "Home", href: "#" }, ...navLinks];
 
 const socialLinks = [
   { label: "LinkedIn", href: "https://www.linkedin.com" },
@@ -22,28 +16,12 @@ export default function FloatingMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const getTriggerEl = () => {
-      const firstServiceCard = document.querySelector<HTMLElement>(
-        "#Services .service-card"
-      );
-      if (firstServiceCard) return firstServiceCard;
-
-      return (
-        document.querySelector<HTMLElement>("#Services") ??
-        document.querySelector<HTMLElement>("#Experience")
-      );
-    };
+    const workSection = document.getElementById("Works");
+    if (!workSection) return;
 
     const updateVisibility = () => {
-      const trigger = getTriggerEl();
-      if (!trigger) {
-        setIsVisible(false);
-        return;
-      }
-
-      const { top, height } = trigger.getBoundingClientRect();
-      const triggerPoint = top + height * 0.05;
-      setIsVisible(triggerPoint <= window.innerHeight * 0.35);
+      const { top } = workSection.getBoundingClientRect();
+      setIsVisible(top <= window.innerHeight * 0.35);
     };
 
     updateVisibility();
@@ -128,13 +106,13 @@ export default function FloatingMenu() {
                   key={item.label}
                   className="relative flex w-fit items-center"
                 >
-                  <Link
+                  <a
                     href={item.href}
                     onClick={closeMenu}
                     className="relative inline-block w-fit text-[length:var(--text-menu)] text-[var(--color-accent-200)] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[var(--color-accent-200)] after:transition-all after:duration-500 after:content-[''] hover:after:w-full"
                   >
                     {item.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -146,15 +124,15 @@ export default function FloatingMenu() {
                 EMAIL ADDRESS
               </span>
               <a
-                href="mailto:josephmontalto10@gmail.com"
+                href={`mailto:${siteConfig.contactEmail}`}
                 onClick={closeMenu}
                 className="hover-link link-text relative block h-fit overflow-hidden font-mono font-medium"
               >
                 <span className="hover-link-top">
-                  josephmontalto10@gmail.com
+                  {siteConfig.contactEmail}
                 </span>
                 <span aria-hidden="true" className="hover-link-bottom">
-                  josephmontalto10@gmail.com
+                  {siteConfig.contactEmail}
                 </span>
               </a>
             </div>

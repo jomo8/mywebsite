@@ -408,19 +408,3 @@ textarea:focus {
   opacity: 1;
   transform: scale(1);
 }
-
-/* ─── Service card stacking ──────────────────────────────────────────── */
-.service-card {
-  position: sticky;
-  border-top: 1px solid var(--color-secondary-300);
-  background: var(--color-secondary-400);
-}
-
-/* ─── Project image hover ────────────────────────────────────────────── */
-.project-card .project-img {
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.project-card:hover .project-img {
-  transform: scale(1.03);
-}
