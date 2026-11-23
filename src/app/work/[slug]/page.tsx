@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import CaseReturnLink from "@/components/CaseReturnLink";
 import { notFound } from "next/navigation";
 import { casePath, selectedWork, siteConfig } from "@/lib/data";
 import styles from "./case.module.css";
@@ -55,9 +55,7 @@ export default async function CasePage({ params }: CasePageProps) {
   return (
     <main className={styles.page}>
       <article className={styles.article}>
-        <Link className={styles.back} href="/#Works">
-          <span aria-hidden="true">←</span> Selected work
-        </Link>
+        <CaseReturnLink className={styles.back} slug={study.slug} />
 
         <header className={styles.header}>
           <p className={styles.metadata}>

@@ -54,8 +54,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
       className={`${inter.variable} ${montreal.variable} ${montrealMono.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          if (location.hash.startsWith('#project-') ||
+              performance.getEntriesByType('navigation')[0]?.type === 'back_forward') {
+            document.documentElement.dataset.skipIntro = 'returning';
+          }
+        ` }} />
+      </head>
       <body className="font-montrealMono antialiased">{children}</body>
     </html>
   );

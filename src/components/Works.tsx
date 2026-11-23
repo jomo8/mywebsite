@@ -83,7 +83,7 @@ export default function Works() {
   return (
     <>
       <section id="Works" aria-labelledby="work-heading" className={styles.section}>
-        <div className={styles.panel}>
+        <div id={`project-${selectedWork.featured.slug}`} className={styles.panel}>
           <div className={styles.sectionHeading}>
             <h2 id="work-heading">Selected work</h2>
             <p className={styles.meta}>Colette · 2026</p>
@@ -92,12 +92,12 @@ export default function Works() {
             <StaffingPreview study={selectedWork.featured} />
           </CaseCard>
         </div>
-        <div className={styles.panel}>
+        <div id={`project-${selectedWork.engineering.slug}`} className={styles.panel}>
           <CaseCard study={selectedWork.engineering}>
             <EngineeringPreview />
           </CaseCard>
         </div>
-        <div className={styles.panel}>
+        <div id={`project-${selectedWork.analysis.slug}`} className={styles.panel}>
           <CaseCard study={selectedWork.analysis}>
             <AnalysisPreview study={selectedWork.analysis} />
           </CaseCard>
