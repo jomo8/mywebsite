@@ -5,7 +5,7 @@
   font-family: var(--font-inter), Arial, sans-serif;
 }
 
-.columns, .contact {
+.columns {
   display: grid;
   max-width: 76rem;
   margin-inline: auto;
@@ -47,63 +47,12 @@
   color: var(--color-accent-500);
 }
 
-.contact {
-  align-items: start;
-  gap: var(--space-md);
-  border-top: 1px solid #55574e;
-  padding-top: var(--space-sm);
-}
-
-.contact .group {
-  border: 0;
-  padding: 0;
-}
-
-.contactIntro {
-  max-width: 39ch;
-  font-size: var(--text-base-large);
-}
-
-.contactLinks {
-  min-width: 0;
-}
-
-.email {
-  font-size: clamp(1.15rem, 2.25vw, 2.1rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  overflow-wrap: anywhere;
-}
-
-.profiles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  margin-top: var(--space-2xs);
-  color: var(--color-accent-500);
-}
-
-.contactLinks a {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-}
-
-.contactLinks a:hover {
-  text-decoration-thickness: 2px;
-}
-
-.contactLinks a:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
-}
-
 @media (min-width: 768px) {
   .section {
     padding-inline: var(--space-lg);
   }
 
-  .columns, .contact {
+  .columns {
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
     column-gap: var(--space-2xl);
   }
