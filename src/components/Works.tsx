@@ -56,29 +56,24 @@ function AnalysisPreview({ study }: { study: CaseStudy }) {
 
 function CaseCard({
   study,
-  featured = false,
   children,
 }: {
   study: CaseStudy;
-  featured?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <Link
       href={casePath(study.slug)}
-      className={featured ? styles.feature : styles.card}
+      className={styles.feature}
       aria-labelledby={study.slug}
       aria-describedby={`${study.slug}-summary`}
     >
       {children}
       <div className={styles.caption}>
         <p className={styles.meta}>{study.category}</p>
-        <h3 id={study.slug}>
-          {study.title}
-          {!featured && <span aria-hidden="true" className={styles.titleArrow}> ↗</span>}
-        </h3>
+        <h3 id={study.slug}>{study.title}</h3>
         <p className={styles.summary} id={`${study.slug}-summary`}>{study.summary}</p>
-        {featured && <span className={styles.readCase}>Read the case study <span aria-hidden="true">→</span></span>}
+        <span className={styles.readCase}>Read the case study <span aria-hidden="true">→</span></span>
       </div>
     </Link>
   );
@@ -86,29 +81,33 @@ function CaseCard({
 
 export default function Works() {
   return (
-    <section id="Works" aria-labelledby="work-heading" className={styles.section}>
-      <div className={styles.content}>
-        <div className={styles.sectionHeading}>
-          <h2 id="work-heading">Selected work</h2>
-          <p className={styles.meta}>Colette · 2026</p>
+    <>
+      <section id="Works" aria-labelledby="work-heading" className={styles.section}>
+        <div className={styles.panel}>
+          <div className={styles.sectionHeading}>
+            <h2 id="work-heading">Selected work</h2>
+            <p className={styles.meta}>Colette · 2026</p>
+          </div>
+          <CaseCard study={selectedWork.featured}>
+            <StaffingPreview study={selectedWork.featured} />
+          </CaseCard>
         </div>
-
-        <CaseCard study={selectedWork.featured} featured>
-          <StaffingPreview study={selectedWork.featured} />
-        </CaseCard>
-
-        <div className={styles.supporting}>
+        <div className={styles.panel}>
           <CaseCard study={selectedWork.engineering}>
             <EngineeringPreview />
           </CaseCard>
+        </div>
+        <div className={styles.panel}>
           <CaseCard study={selectedWork.analysis}>
             <AnalysisPreview study={selectedWork.analysis} />
           </CaseCard>
         </div>
+      </section>
 
-        <div className={styles.more}>
+      <section id="MoreProjects" aria-labelledby="more-projects-heading" className={styles.section}>
+        <div className={`${styles.panel} ${styles.more}`}>
           <div className={styles.sectionHeading}>
-            <h2>More projects</h2>
+            <h2 id="more-projects-heading">More projects</h2>
             <p className={styles.meta}>{moreProjects.year}</p>
           </div>
           <ul>
@@ -121,7 +120,7 @@ export default function Works() {
             ))}
           </ul>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

@@ -3,12 +3,19 @@
   background: #20211e;
   color: var(--color-accent-200);
   font-family: var(--font-inter), Arial, sans-serif;
-  padding: clamp(4.5rem, 7vw, 7rem) var(--space-md);
+  padding-inline: var(--space-md);
 }
 
-.content {
+.panel {
+  display: grid;
+  align-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
   max-width: 76rem;
   margin-inline: auto;
+  padding-block: clamp(1rem, 4dvh, 3rem);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .sectionHeading {
@@ -36,47 +43,25 @@
   color: var(--color-accent-500);
 }
 
-.feature, .supporting {
+.feature {
   display: grid;
   gap: var(--space-sm);
 }
 
-.card {
-  display: block;
-  min-width: 0;
-}
-
-.feature, .card, .more a {
+.feature, .more a {
   color: inherit;
 }
 
-.feature:focus-visible, .card:focus-visible, .more a:focus-visible {
+.feature:focus-visible, .more a:focus-visible {
   outline: 2px solid #f5efd4;
   outline-offset: 5px;
 }
 
-.supporting, .more {
-  margin-top: var(--space-lg);
-}
-
-.supporting {
-  align-items: start;
-  row-gap: var(--space-lg);
-}
-
-.card .caption {
-  margin-top: var(--space-sm);
-}
-
 .caption h3 {
-  font-size: var(--text-heading-3);
+  font-size: var(--text-heading-2);
   font-weight: 500;
   line-height: 1.08;
   margin-block: var(--space-2xs);
-}
-
-.feature h3 {
-  font-size: var(--text-heading-2);
 }
 
 .summary {
@@ -91,14 +76,7 @@
   font-weight: 600;
 }
 
-.titleArrow {
-  display: inline-block;
-  color: var(--color-accent-500);
-  font-size: 0.75em;
-}
-
 .feature:is(:hover, :focus-visible) .readCase,
-.card:is(:hover, :focus-visible) h3,
 .more a:is(:hover, :focus-visible) {
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -141,6 +119,7 @@
 /* Enlarge the nightly rows without shrinking the whole report into a thumbnail. */
 .tableCrop {
   aspect-ratio: 1.68;
+  max-height: 44dvh;
 }
 
 .tableCrop img {
@@ -252,13 +231,12 @@
   .section {
     padding-inline: var(--space-lg);
   }
+}
 
-  .feature, .supporting {
+@media (min-width: 768px), (min-width: 36rem) and (max-height: 32rem) {
+  .feature {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--gap-fluid);
-  }
-
-  .feature {
     align-items: center;
   }
 
@@ -268,5 +246,43 @@
 
   .analysisPreview {
     justify-content: center;
+  }
+}
+
+/* Keep the complete card readable on shorter phone screens. */
+@media (max-height: 44rem) {
+  .section {
+    padding-inline: clamp(1rem, 3.5vw, var(--space-lg));
+  }
+
+  .sectionHeading {
+    column-gap: 0.5rem;
+    padding-block: 0.5rem 0.75rem;
+    padding-inline-end: 3.75rem;
+  }
+
+  .feature {
+    gap: 0.75rem;
+  }
+
+  .caption h3 {
+    margin-block: 0.375rem;
+    font-size: clamp(1.5rem, 4.8vmin, 2.5rem);
+  }
+
+  .summary {
+    line-height: 1.35;
+  }
+
+  .readCase {
+    margin-top: 0.625rem;
+  }
+
+  .panel {
+    padding-block: 1rem;
+  }
+
+  .tableCrop, .chartCrop {
+    max-height: 22dvh;
   }
 }

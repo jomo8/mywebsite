@@ -75,6 +75,16 @@ html {
   scroll-behavior: smooth;
 }
 
+html:has(#Works) {
+  scroll-snap-type: y mandatory;
+}
+
+/* Allow every scroll position from About through the footer. */
+.after-work {
+  scroll-snap-align: start;
+  scroll-margin-block-end: max(100dvh, 25rem);
+}
+
 body {
   background-color: var(--color-accent-200);
   color: var(--color-foreground);

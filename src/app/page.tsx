@@ -13,12 +13,16 @@ export default function Home() {
       <Preloader />
       <Header />
       <main>
-        <Hero />
+        <div className="flow-root snap-start">
+          <Hero />
+        </div>
         <FloatingMenu />
         <div className="relative z-10">
           <Works />
-          <About />
-          <Contact />
+          <div className="after-work">
+            <About />
+            <Contact />
+          </div>
         </div>
       </main>
       <Footer />
