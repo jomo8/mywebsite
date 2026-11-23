@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { aboutBio, experience, siteConfig, skillCategories } from "@/lib/data";
+import { aboutBio, experience, skillCategories } from "@/lib/data";
 import styles from "./Profile.module.css";
 
 export default function About() {
@@ -8,16 +7,7 @@ export default function About() {
       <div className={styles.columns}>
         <div className={styles.group}>
           <h2 id="about-heading">About &amp; experience</h2>
-          <div className={styles.introduction}>
-            <Image
-              src={siteConfig.profileImage}
-              width={2048}
-              height={1536}
-              alt="Joe Montalto"
-              className={styles.portrait}
-            />
-            <p>{aboutBio}</p>
-          </div>
+          <p className={styles.introduction}>{aboutBio}</p>
           <dl className={styles.details}>
             {experience.map(({ role, description }) => (
               <div key={role}>

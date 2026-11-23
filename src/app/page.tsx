@@ -15,9 +15,11 @@ export default function Home() {
       <main>
         <Hero />
         <FloatingMenu />
-        <Works />
-        <About />
-        <Contact />
+        <div className="relative z-10">
+          <Works />
+          <About />
+          <Contact />
+        </div>
       </main>
       <Footer />
     </>

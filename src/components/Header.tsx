@@ -10,7 +10,7 @@ export default function Header() {
           <span className="btn-text">View résumé</span>
         </a>
         <nav aria-label="Main navigation">
-          <ul className="m-0 flex flex-col items-start text-[var(--color-secondary-100)] gap-y-[var(--space-3xs)] md:flex-row md:items-center md:gap-x-[var(--space-xs)] md:gap-y-0">
+          <ul className="m-0 flex flex-col items-start text-[var(--color-secondary-100)] gap-y-[var(--space-3xs)] md:flex-row md:items-center md:gap-x-[var(--space-2xs)] md:gap-y-0">
             {navLinks.map((link, i) => (
               <li key={link.href} className="header-menu-item" style={{ animationDelay: `${1800 + i * 80}ms` }}>
                 <HoverLink href={link.href} label={link.label} className="header-menu-link" />

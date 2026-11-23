@@ -1,67 +1,26 @@
-.hero {
-  padding: clamp(10rem, 16vw, 14rem) var(--space-md) clamp(3rem, 6vw, 6rem);
-}
-
-.content {
-  max-width: 76rem;
-  margin-inline: auto;
-}
-
-.name {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0 0.22em;
-  color: var(--color-secondary-400);
-  font-size: clamp(3.4rem, 11.5vw, 10.5rem);
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
-}
-
-.word {
-  display: inline-flex;
-  overflow: clip;
-  padding-block: 0.06em;
-}
-
-.introduction {
-  display: grid;
-  justify-items: start;
-  align-items: end;
-  gap: var(--space-md);
-  margin-top: var(--space-md);
-}
-
-.introduction p {
-  max-width: 58ch;
-  color: var(--color-secondary-200);
-  font: 400 clamp(1.125rem, 1.85vw, 1.6rem) / 1.45 var(--font-inter), Arial, sans-serif;
-}
-
-@media (min-width: 768px) {
-  .hero { padding-inline: var(--space-lg); }
-  .introduction {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: var(--space-lg);
-  }
+.namePart {
+  display: inline-block;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .word > span {
-    animation: name-in 700ms ease-out 2.1s both;
-  }
-  .word:nth-child(2) > span { animation-delay: 2.25s; }
-  .introduction { animation: introduction-in 600ms ease-out 1.9s both; }
+  .namePart { animation: rise-in 700ms ease-out both; }
+  .copy { animation: fade-in 600ms ease-out 2.6s both; }
+  .contact { animation: rise-in 700ms ease-out 3s both; }
+  .portrait { animation: photo-in 1s ease-out 2.5s both; }
+  .availability { animation: rise-in 700ms ease-out 2.8s both; }
 }
 
-@keyframes name-in {
+@keyframes rise-in {
   from { opacity: 0; transform: translateY(100%); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes introduction-in {
-  from { opacity: 0; transform: translateY(0.5rem); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes photo-in {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); transform: scale(1.3); }
+  to { opacity: 1; clip-path: inset(0); transform: scale(1); }
 }

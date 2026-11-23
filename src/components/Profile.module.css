@@ -26,20 +26,8 @@
 }
 
 .introduction {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
   margin-bottom: var(--space-md);
   font-size: var(--text-base);
-}
-
-.portrait {
-  width: clamp(4rem, 8vw, 7rem);
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: 36% center;
-  flex: none;
-  filter: grayscale(1);
 }
 
 .details {
