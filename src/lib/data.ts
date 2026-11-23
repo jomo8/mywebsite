@@ -5,7 +5,7 @@ export const siteConfig = {
   contactEmail: "joey.montalto@hotmail.com",
   resumePath: "/jrm_resume_1.pdf",
   tagline:
-    "I’m a software engineer that loves to work with the people who use what I build. I've built tools that automated forecasting, staffing, and sales reporting for restaurant owners.",
+    "Open to job opportunities worldwide. I've built tools that automated forecasting, staffing, and sales reporting for restaurant owners.",
   availability: "Available for work",
   availableDate: "DEC'26",
   profileImage: "/myself.JPG",
