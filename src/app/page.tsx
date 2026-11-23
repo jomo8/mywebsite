@@ -19,10 +19,8 @@ export default function Home() {
         <FloatingMenu />
         <div className="relative z-10">
           <Works />
-          <div className="after-work">
-            <About />
-            <Contact />
-          </div>
+          <About />
+          <Contact />
         </div>
       </main>
       <Footer />

@@ -2,7 +2,7 @@
 
 export const siteConfig = {
   name: "Joe Montalto",
-  contactEmail: "joey.montalto@hotmail.com",
+  contactEmail: "josephmontalto10@gmail.com",
   resumePath: "/jrm_resume_1.pdf",
   tagline:
     "Open to job opportunities worldwide. I've built tools that automated forecasting, staffing, and sales reporting for restaurant owners.",

@@ -79,8 +79,8 @@ html:has(#Works) {
   scroll-snap-type: y mandatory;
 }
 
-/* Allow every scroll position from About through the footer. */
-.after-work {
+/* Allow every scroll position from Contact through the footer. */
+#Contact {
   scroll-snap-align: start;
   scroll-margin-block-end: max(100dvh, 25rem);
 }

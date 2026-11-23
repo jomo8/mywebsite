@@ -1,4 +1,8 @@
 .section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   padding-inline: var(--space-md);
   color: var(--color-accent-200);
   background: #20211e;
@@ -10,7 +14,7 @@
   max-width: 76rem;
   margin-inline: auto;
   gap: var(--space-lg);
-  padding-bottom: var(--space-2xl);
+  padding-bottom: clamp(1rem, 4dvh, 3rem);
 }
 
 .group {
@@ -50,6 +54,17 @@
 @media (max-height: 44rem) {
   .group {
     padding-top: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 44rem) {
+  .group h2, .introduction {
+    margin-bottom: var(--space-xs);
+  }
+
+  .details {
+    gap: var(--space-2xs);
+    line-height: 1.3;
   }
 }
 
