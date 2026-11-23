@@ -1,9 +1,8 @@
 .section {
-  min-height: 100vh;
-  min-height: 100dvh;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   padding-inline: var(--space-md);
+  padding-bottom: clamp(3rem, 10dvh, 6rem);
   color: var(--color-accent-200);
   background: #20211e;
   font-family: var(--font-inter), Arial, sans-serif;
@@ -11,6 +10,8 @@
 
 .columns {
   display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
   max-width: 76rem;
   margin-inline: auto;
   gap: var(--space-lg);

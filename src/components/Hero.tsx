@@ -8,7 +8,7 @@ export default function Hero() {
 
   return (
     <section aria-labelledby="hero-name" className="mb-[-100svh]">
-      <div className="section-padding-equal sticky top-0 flex min-h-svh items-end">
+      <div className="section-padding-equal [@media(height>44rem)]:sticky top-0 flex min-h-svh items-end">
         <div className="flex w-full flex-col pt-40 md:gap-y-[var(--space-lg)] lg:pt-24">
           <h1 id="hero-name" aria-label={siteConfig.name} className="overflow-clip text-center font-semibold uppercase text-[var(--color-secondary-400)]">
             <span className="hidden whitespace-nowrap text-[clamp(3.8rem,12vw,12.5rem)] leading-[0.82] tracking-[-0.035em] md:block">

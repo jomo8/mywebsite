@@ -6,7 +6,7 @@ export default function About() {
     <section id="About" aria-labelledby="about-heading" className={styles.section}>
       <div className={styles.columns}>
         <div className={styles.group}>
-          <h2 id="about-heading">About &amp; experience</h2>
+          <h2 id="about-heading">About</h2>
           <p className={styles.introduction}>{aboutBio}</p>
           <dl className={styles.details}>
             {experience.map(({ role, description }) => (
