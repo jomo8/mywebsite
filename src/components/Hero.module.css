@@ -1,0 +1,26 @@
+.namePart {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .namePart { animation: rise-in 700ms ease-out both; }
+  .copy { animation: fade-in 600ms ease-out 2.6s both; }
+  .contact { animation: rise-in 700ms ease-out 3s both; }
+  .portrait { animation: photo-in 1s ease-out 2.5s both; }
+  .availability { animation: rise-in 700ms ease-out 2.8s both; }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes photo-in {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); transform: scale(1.3); }
+  to { opacity: 1; clip-path: inset(0); transform: scale(1); }
+}

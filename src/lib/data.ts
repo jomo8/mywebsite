@@ -2,193 +2,149 @@
 
 export const siteConfig = {
   name: "Joe Montalto",
-  role: "AI Engineer & Developer",
+  contactEmail: "josephmontalto10@gmail.com",
+  resumePath: "/jrm_resume_1.pdf",
   tagline:
-    "Open to job opportunities worldwide. Passionate about building polished, intuitive, and thoughtful digital projects that leave a mark.",
+    "Open to job opportunities worldwide. I've built tools that automated forecasting, staffing, and sales reporting for restaurant owners.",
   availability: "Available for work",
-  availableDate: "Jun'26",
+  availableDate: "DEC'26",
   profileImage: "/myself.JPG",
 };
 
 export const navLinks = [
-  { label: "Services", href: "/#Services" },
-  { label: "Works", href: "/#Works" },
+  { label: "Work", href: "/#Works" },
   { label: "About", href: "/#About" },
   { label: "Contact", href: "/#Contact" },
 ];
 
-export interface Service {
-  number: string;
+export interface CaseStudy {
+  slug: string;
+  category: string;
   title: string;
-  description: string;
-  skills: string[];
+  pageTitle: string;
+  summary: string;
+  detailHeading: string;
+  body: string;
+  figure: {
+    src: string;
+    width: number;
+    height: number;
+    alt: string;
+    caption: string;
+  };
 }
 
-export const services: Service[] = [
-  {
-    number: "01",
-    title: "Back-End Development",
-    description:
-      "From ETL pipelines to ML-driven insights, I build complete data suites with simple dashboards. I work with modern stacks to deliver high-impact apps that are scalable, maintainable, and ready for real-world users.",
-    skills: [
-      "FastAPI, Node.js, SQL/PostgreSQL",
-      "AWS, Kubernetes, Airflow, Kafka",
-      "Git, GitHub, Postman, Jira",
-    ],
-  },
-  {
-    number: "02",
-    title: "Machine Learning",
-    description:
-      "Data is everywhere. I apply statistical analysis to reveal patterns, flag anomalies, and support better decisions. My work applies efficient modeling to cleaned data to deliver insights for my teams.",  
-    // "Design is more than looks — it's about clarity and connection. I design and develop clean, responsive interfaces that feel intuitive across devices. My focus is on clarity, accessibility, and seamless user experiences.",
-    skills: [
-      "scikit-learn, NumPy, Pandas",
-      "PCA, K-Means, Multivariate Analysis",
-      "Exploratory Data Analysis, Feature Engineering",
-    ],
-  },
-  {
-    number: "03",
-    title: "Optimization",
-    description:
-      "I focus on building systems that stay reliable as things scale. From building clean dashboards to adding security architecture, I apply core computer science principles to keep applications fast, secure, and usable for the future.", 
-    // "Beyond handling data, I'm driven by the challenge of turning complex raw inputs into reliable, usable systems. I enjoy designing pipelines that power insights and apply core CS principles to build for scale, speed, and stability.",
-    skills: [
-      "Data Structures & Algorithms",
-      "DBMS, OOP, OS Fundamentals",
-      "Data Pipelines, ETL, and Task Automation",
-    ],
-  },
-];
-
-export interface Project {
-  title: string;
-  subtitle: string;
-  href: string;
-  tags: string[];
-  year: string;
-  video?: string;
-  image?: string;
+export function casePath(slug: string) {
+  return `/work/${slug}/`;
 }
 
-export const projects: Project[] = [
-  {
-    title: "Solar Microgrid Energy Management System",
-    subtitle: "Modern Marketing Website",
-    href: "https://energy-management-system-sim.streamlit.app/",
-    tags: ["Development"],
-    year: "2025",
-    video: "/ems_recording_new.mp4",
+export const selectedWork = {
+  featured: {
+    slug: "hav-and-mar-staffing",
+    category: "Client delivery",
+    title: "Helping Hav & Mar plan next week’s staffing",
+    pageTitle: "Helping Hav & Mar plan next week’s staffing",
+    summary:
+      "Hav & Mar’s schedule writer posted shifts every Friday. I built a two-week planning view that brought reservations, large parties, and upcoming events together before she posted.",
+    detailHeading: "What changed after client feedback",
+    body:
+      "Working with her also changed how I presented labor costs. She wanted to see which parts of the restaurant were running above target. I revised the daily labor report to show front- and back-of-house labor separately, compare each role with its target, and simplify the charts. At our next meeting, she confirmed she had seen the changes and found the report easier to use.",
+    figure: {
+      src: "/images/work/v1b-reservations-with-schedules-crop.png",
+      width: 2336,
+      height: 1790,
+      alt: "Weekly forecast table comparing scheduled and recommended labor hours for each night.",
+      caption:
+        "Recreated weekly staffing forecast with illustrative figures. Each row compares one night’s expected demand, scheduled hours, and the hours implied by the labor target.",
+    },
   },
-//   {
-//     title: "Financial Capstone AI",
-//     subtitle: "Full-Stack Recruitment Platform",
-//     href: "https://zunedjobs.netlify.app/",
-//     tags: ["Development"],
-//     year: "2025",
-//   },
-  {
-    title: "Wildfire Detection",
-    subtitle: "SAAS Platform",
-    href: "https://productivity-saas-zuned.netlify.app/",
-    tags: ["Development"],
-    year: "2025",
-    image: "/wildfire_thumbnail.png",
+  engineering: {
+    slug: "restaurant-data-imports",
+    category: "Software engineering",
+    title: "Importing OpenTable and ezCater data without API access",
+    pageTitle: "Bringing OpenTable and ezCater data into Colette without API access",
+    summary:
+      "I built two file importers so restaurant teams could use their existing exports in Colette. OpenTable reservations fed planning reports, and ezCater order details fed a kitchen prep sheet.",
+    detailHeading: "Handling incomplete exports",
+    body:
+      "The two providers served different restaurant groups and exported different data. OpenTable supplied reservation CSVs. For ezCater, I combined order summaries with item-level details so a kitchen could see what to prepare. I also built checks for files that looked usable but were incomplete. When a real OpenTable export arrived with eight required columns missing, the importer rejected it in seconds and replied to the sender with the names of all eight.",
+    figure: {
+      src: "/images/work/v2a-email-import-architecture.png",
+      width: 2400,
+      height: 1720,
+      alt: "Import architecture showing Joe’s components, the successful route to reporting, and a rejection branch for missing columns.",
+      caption:
+        "The diagram follows an emailed export from validation to report data. The dashed outline marks the components I built. The rejection path shows how the sender learns which columns are missing.",
+    },
   },
-//   {
-//     title: "Real Time Financial News Monitor",
-//     subtitle: "ML Recommendation Engine",
-//     href: "https://movierecommendation-sbjn.onrender.com/",
-//     tags: ["Development"],
-//     year: "2025",
-//   },
-//   {
-//     title: "Hot Food Places",
-//     subtitle: "Using Google Places API to get place w most new reviews",
-//     href: "https://code2img-zuned.netlify.app/",
-//     tags: ["Development"],
-//     year: "2025",
-//   },
+  analysis: {
+    slug: "labor-versus-sales",
+    category: "Data analysis",
+    title: "Making labor costs comparable across restaurant systems",
+    pageTitle: "Making labor costs comparable across restaurant systems",
+    summary:
+      "A restaurant manager could ask, “What percentage of sales went to labor this week?” I built the calculation that let Colette answer when a restaurant used different systems for timekeeping and sales.",
+    detailHeading: "Calculating a weekly percentage managers can interpret",
+    body:
+      "I joined clock-in costs with net sales by location and business day. For a weekly figure, I divided total labor cost by total sales so a quiet Monday and a busy Friday contributed in proportion to their sales. The tool also distinguished a genuine zero from a figure it couldn’t calculate. I checked the new calculation against Colette’s earlier Toast-only tool. In an automated test using synthetic data, the two agreed to the cent.",
+    figure: {
+      src: "/images/work/v3a-labor-pct-by-day.png",
+      width: 2400,
+      height: 1400,
+      alt: "Illustrative daily labor percentages. The period total is 24.7%. Saturday is blank because sales were zero. Sunday shows a flagged 0% because there were sales and no clock-ins.",
+      caption:
+        "Illustrative week. Labor was 24.7% of total sales. Averaging the daily percentages would give 21.4% because it gives quiet and busy days equal weight.",
+    },
+  },
+} satisfies Record<string, CaseStudy>;
+
+export const moreProjects = {
+  year: "2025",
+  items: [
+    {
+      title: "Solar Microgrid Energy Management System",
+      href: "https://energy-management-system-sim.streamlit.app/",
+    },
+    {
+      title: "Wildfire Detection",
+      href: "https://github.com/jomo8/mywebsite/blob/main/Wildfire_Detection_Analysis.ipynb",
+    },
+  ],
+};
+
+export const aboutBio =
+  "I earned an M.S. in Artificial Intelligence and a B.S. in Computer Science at Tufts, where I also hosted a weekly music show on WMFO.";
+
+export const experience = [
+  {
+    role: "Colette · Forward Deployed Engineer",
+    description: "Worked with restaurant operators on staffing reports and built the integrations behind reservation and catering tools.",
+  },
+  {
+    role: "ESG Flo · Software Engineer Intern",
+    description: "Built Python data pipelines that increased reporting throughput by 40% across 15+ enterprise accounts.",
+  },
+  {
+    role: "Lucky Friday Labs · Software Engineer Intern",
+    description: "Built a Python service that analyzed more than 50,000 Ethereum transactions per day.",
+  },
 ];
 
-export interface SkillCategory {
-  title: string;
-  items: string[];
-}
-
-export const skillCategories: SkillCategory[] = [
-  {
-    title: "Languages & Tools",
-    items: [
-      "Python",
-      "SQL",
-      "C++",
-      "Java",
-      "Typescript",
-      "JavaScript",
-      "Git",
-      "Postman",
-      "Docker",
-      "Firebase",
-    ],
-  },
-  {
-    title: "Frameworks & Libraries",
-    items: [
-      "React",
-      "Node.js",
-      "Express.js",
-      "Flask",
-      "Bootstrap",
-      "jQuery",
-      "TailwindCSS",
-      "Framer Motion",
-      "GSAP",
-    ],
-  },
-  {
-    title: "Core CS Concepts",
-    items: ["DSA", "DBMS", "OOP", "Operating Systems", "System Design"],
-  },
+export const skillCategories = [
+  { title: "Software engineering", skills: "TypeScript, React, Node.js, PostgreSQL, Vitest, Playwright" },
+  { title: "Data analysis", skills: "SQL, Python, pandas, scikit-learn, data validation" },
+  { title: "Client delivery", skills: "Requirements gathering, deployment, customer training, ongoing support" },
 ];
 
-export const aboutHeadings = ["DEVELOPER", "DESIGNER", "CREATOR/"];
-
-export const aboutTagline =
-  "I'm a software engineer driven by a passion for turning ideas into clean, intuitive digital experiences.";
-
-export const aboutBio = [
-  "I am a passionate Software Engineer with a knack for building full-stack web applications using modern technologies like Next.js and Tailwind CSS. My journey in tech began with a curiosity for solving real-world problems through innovative solutions, which evolved into a love for crafting user-centric digital experiences.",
-  "Beyond coding, I thrive in collaborative environments and enjoy tackling challenging problems with creative solutions. I aim to contribute to impactful projects that make a difference in users' lives.",
-];
-
-export const servicesIntro =
-  "I specialize in building data pipelines that are fast, reliable, and developer-friendly. With a solid foundation in algorithms and AI, I can create simple solutions for complex problems."
-// "I specialize in building full-stack web applications that are fast, reliable, and user-friendly. With a solid foundation in both frontend and backend technologies, I help bring ideas to life whether it's for a business, a startup, or a product team.";
-
-export const worksIntro =
-  "Here are some of my favorite projects.";
-
-export const footerMenu = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "#Services" },
-  { label: "Works", href: "#Works" },
-  { label: "About", href: "#About" },
-  { label: "Contact", href: "#Contact" },
-];
+export const footerMenu = [{ label: "Home", href: "/" }, ...navLinks];
 
 export const socials = [
   {
-    label: "Linkedin",
+    label: "LinkedIn",
     href: "https://www.linkedin.com/in/joe-montalto-478b56230/",
   },
   {
-    label: "Instagram",
-    href: "https://www.instagram.com/joey.montalto/",
-  },
-  {
-    label: "Github",
+    label: "GitHub",
     href: "https://github.com/jomo8",
   },
 ];

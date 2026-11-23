@@ -16,13 +16,14 @@ export default function HoverLink({
   const linkProps = external
     ? { target: "_blank" as const, rel: "noopener noreferrer" }
     : {};
+  const Anchor = href.startsWith("#") || href.startsWith("/#") ? "a" : Link;
 
   return (
-    <Link href={href} className={`hover-link ${className}`} {...linkProps}>
+    <Anchor href={href} className={`hover-link ${className}`} {...linkProps}>
       <span className="hover-link-top">{label}</span>
       <span aria-hidden="true" className="hover-link-bottom">
         {label}
       </span>
-    </Link>
+    </Anchor>
   );
 }

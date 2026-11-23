@@ -1,23 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Preloader() {
-  const [reveal, setReveal] = useState(false);
-  const [hidden, setHidden] = useState(false);
-
   useEffect(() => {
-    // Let the initial dark screen settle, then fire the bubble reveal.
-    const t1 = setTimeout(() => setReveal(true), 120);
-    // Remove overlay once the reveal has fully covered the screen.
-    const t2 = setTimeout(() => setHidden(true), 1700);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    const root = document.documentElement;
+    if (root.dataset.skipIntro !== "returning") return;
+
+    // Re-enable smooth in-page links after the browser restores its position.
+    const frame = requestAnimationFrame(() => { root.dataset.skipIntro = "returned"; });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
-  if (hidden) return null;
-
-  return <div className={`preloader ${reveal ? "done" : ""}`} />;
+  return <div aria-hidden="true" className="preloader" />;
 }

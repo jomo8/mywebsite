@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Archived, precompiled third-party design reference.
+    "template_code/**",
   ]),
 ]);
 

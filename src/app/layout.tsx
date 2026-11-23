@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inter } from "next/font/google";
+import { selectedWork } from "@/lib/data";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,34 +25,23 @@ const montrealMono = localFont({
   display: "swap",
 });
 
+const title = "Joe Montalto | Software engineer";
+const description =
+  "Software engineer working directly with restaurant teams. Explore Joe Montalto’s work on staffing forecasts, reservation and catering data, and labor reporting.";
+const { src, width, height, alt } = selectedWork.featured.figure;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://zunedaalim.com"),
-  title: "Joe Montalto - Full Stack Developer",
-  description:
-    "Portfolio website of Joe Montalto showcasing projects, skills, and contact information.",
-  keywords: [
-    "Joe Montalto",
-    "Full Stack Developer",
-    "Portfolio",
-    "Web Developer",
-    "React",
-    "Next.js",
-  ],
+  metadataBase: new URL("https://joemontalto.xyz"),
+  title,
+  description,
   creator: "Joe Montalto",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Joe Montalto - Full Stack Developer",
-    description:
-      "Explore the portfolio of Joe Montalto. Full stack projects, web apps, and more.",
-    url: "https://joemontalto.xyz",
-    siteName: "Joe Montalto Portfolio",
-    images: [
-      {
-        url: "https://zunedaalim.com/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Joe Montalto Portfolio",
-      },
-    ],
+    title,
+    description,
+    url: "/",
+    siteName: "Joe Montalto",
+    images: [{ url: src, width, height, alt }],
     type: "website",
   },
 };
@@ -64,8 +54,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
       className={`${inter.variable} ${montreal.variable} ${montrealMono.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          if (location.hash.startsWith('#project-') ||
+              performance.getEntriesByType('navigation')[0]?.type === 'back_forward') {
+            document.documentElement.dataset.skipIntro = 'returning';
+          }
+        ` }} />
+      </head>
       <body className="font-montrealMono antialiased">{children}</body>
     </html>
   );

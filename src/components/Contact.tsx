@@ -1,165 +1,105 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import type { FormEvent } from "react";
+import { siteConfig, socials } from "@/lib/data";
 import TextReveal from "./TextReveal";
 
-const CONTACT_EMAIL = "joey.montalto@hotmail.com";
+const fieldStyle =
+  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[var(--color-text-bg)] placeholder:text-white/55 focus:ring-2 focus:ring-white/40";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [errorMessage, setErrorMessage] = useState("");
-  const [status, setStatus] = useState<
-    "idle" | "sending" | "sent" | "error"
-  >("idle");
+  const recipient = `mailto:${siteConfig.contactEmail}`;
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setStatus("sending");
-    setErrorMessage("");
-    const form = e.currentTarget;
-    const honeypot = (new FormData(form).get("hp") ?? "").toString().trim();
-
-    // Quietly ignore likely bot submissions.
-    if (honeypot) {
-      setStatus("sent");
-      return;
-    }
-
-    try {
-      const name = formData.name.trim();
-      const email = formData.email.trim();
-      const message = formData.message.trim();
-
-      if (!name || !email || !message) {
-        throw new Error("Name, email, and message are required.");
-      }
-
-      const subject = encodeURIComponent(`Portfolio message from ${name}`);
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\n${message}`,
-      );
-
-      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-      setStatus("sent");
-      setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setStatus("idle"), 3000);
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Failed to send message.";
-      setErrorMessage(message);
-      setStatus("error");
-      setTimeout(() => {
-        setStatus("idle");
-        setErrorMessage("");
-      }, 6000);
-    }
+  function openEmailDraft(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const fields = new FormData(event.currentTarget);
+    const name = String(fields.get("name")).trim();
+    const email = String(fields.get("email")).trim();
+    const message = String(fields.get("message")).trim();
+    const subject = encodeURIComponent(`Portfolio message from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    window.location.href = `${recipient}?subject=${subject}&body=${body}`;
   }
 
   return (
-    <div className="section-padding-x py-[var(--space-lg)]">
-      <div className="relative flex h-full w-full flex-col items-center justify-between rounded-md bg-[linear-gradient(0deg,_#393632,_#080807)] bg-cover border border-white/10 shadow-lg backdrop-blur-xl p-[var(--space-md)]">
-        {/* CTA heading */}
-        <h2 className="max-w-[10ch] text-center text-[length:var(--text-heading-1)] font-semibold uppercase text-[var(--color-accent-400)]">
-          <TextReveal text="Let's Make It Happen" stagger={40} />
+    <section
+      id="Contact"
+      aria-labelledby="contact-heading"
+      className="section-padding-x bg-[var(--color-accent-200)] py-[var(--space-lg)]"
+    >
+      <div className="flex flex-col items-center rounded-md border border-white/10 bg-[linear-gradient(0deg,_#393632,_#080807)] p-[var(--space-md)] shadow-lg">
+        <h2
+          id="contact-heading"
+          aria-label="Let's Make It Happen"
+          className="max-w-[10ch] text-center text-[length:var(--text-heading-1)] font-semibold uppercase text-[var(--color-accent-400)]"
+        >
+          <TextReveal
+            text="Let's Make It Happen"
+            stagger={40}
+            className="motion-reduce:[&_.word>span]:translate-y-0 motion-reduce:[&_.word>span]:opacity-100 motion-reduce:[&_.word>span]:transition-none"
+          />
         </h2>
 
-        {/* Form container */}
-        <section
-          id="Contact"
-          className="w-full sm:w-[36rem] mx-auto my-10 px-6 sm:px-10 xl:px-14 py-12 rounded-2xl backdrop-blur-xl bg-[rgba(209,209,199,0.05)] border border-[rgba(255,255,255,0.1)] shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
-        >
-          <h2 className="text-center text-[length:var(--text-h4)] font-medium mb-8 text-[var(--color-accent-200)] tracking-tight">
+        <div className="mx-auto my-10 w-full max-w-xl rounded-2xl border border-white/10 bg-[rgba(209,209,199,0.05)] px-4 py-12 text-[var(--color-accent-200)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-xl min-[390px]:px-6 sm:px-10 xl:px-14">
+          <h3 className="mb-8 text-center text-[length:var(--text-h4)] font-medium tracking-tight">
             Say Hello
-          </h2>
+          </h3>
           <p className="mb-5 text-center text-sm text-white/70">
             This form opens your email app and drafts the message to{" "}
-            <a className="underline underline-offset-4" href={`mailto:${CONTACT_EMAIL}`}>
-              {CONTACT_EMAIL}
-            </a>
-            .
+            <a className="[overflow-wrap:anywhere] underline underline-offset-4" href={recipient}>
+              {siteConfig.contactEmail}
+            </a>.
           </p>
 
-          <form
-            noValidate
-            className="space-y-4"
-            onSubmit={handleSubmit}
-          >
-            {/* Honeypot */}
+          <form action={recipient} method="post" encType="text/plain" onSubmit={openEmailDraft} className="grid gap-4">
             <input
+              aria-label="Your name"
               type="text"
-              style={{ display: "none" }}
-              tabIndex={-1}
-              autoComplete="off"
-              name="hp"
+              name="name"
+              autoComplete="name"
+              required
+              placeholder="Drop a name"
+              className={`${fieldStyle} text-[length:var(--text-base)]`}
             />
-
-            {/* Name */}
-            <div>
-              <input
-                type="text"
-                placeholder="Drop a name"
-                className="w-full placeholder:font-[400] font-normal text-[length:var(--text-base)] rounded-xl px-4 py-3 bg-white/5 border border-white/10 text-[var(--color-text-bg)] placeholder:text-white/40 focus:ring-2 focus:ring-white/20 transition"
-                name="name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-              />
-            </div>
-
-            {/* Email */}
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="Wanna hear back? Add your email"
-                className="w-full placeholder:font-[400] text-[length:var(--text-base)] font-normal rounded-xl px-4 py-3 bg-white/5 border border-white/10 text-[var(--color-text-bg)] placeholder:text-white/40 focus:ring-2 focus:ring-white/20 transition"
-                name="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-              />
-            </div>
-
-            {/* Message */}
-            <div>
-              <textarea
-                name="message"
-                placeholder="Say hello or drop a note..."
-                rows={5}
-                required
-                className="w-full placeholder:font-[400] font-normal rounded-xl px-4 py-3 bg-white/5 border border-white/10 text-[var(--color-text-bg)] placeholder:text-white/40 focus:ring-2 focus:ring-white/20 transition resize-none"
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-              />
-            </div>
-
-            {/* Submit */}
+            <input
+              aria-label="Your email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              required
+              placeholder="Your email"
+              className={`${fieldStyle} text-[length:var(--text-base)]`}
+            />
+            <textarea
+              aria-label="Your message"
+              name="message"
+              rows={5}
+              required
+              placeholder="Say hello or drop a note..."
+              className={fieldStyle}
+            />
             <button
               type="submit"
-              disabled={status === "sending"}
-              className="w-full px-6 py-3 rounded-xl font-semibold tracking-wide text-[length:var(--text--small)] transition-all duration-100 bg-[var(--color-accent-200)] text-black hover:bg-white active:scale-[0.98] active:shadow-inner disabled:opacity-60"
+              className="w-full rounded-xl bg-[var(--color-accent-200)] px-6 py-3 text-[length:var(--text--small)] font-semibold tracking-wide text-black transition-colors hover:bg-white active:scale-[0.98]"
             >
-              {status === "sending"
-                ? "Sending..."
-                : status === "sent"
-                  ? "Sent ✓"
-                  : "Send Message"}
+              Open email draft
             </button>
-            {status === "error" && (
-              <p className="rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
-                {errorMessage}
-              </p>
-            )}
           </form>
-        </section>
+        </div>
+
+        <div className="max-w-lg text-center text-sm text-[var(--color-accent-500)]">
+          <p>I’m open to forward deployed engineering, software engineering, and data analyst roles.</p>
+          <ul aria-label="Professional profiles" className="mt-3 flex justify-center gap-6">
+            {socials.map(({ label, href }) => (
+              <li key={href}>
+                <a href={href} className="underline underline-offset-4 hover:text-white">
+                  {label} <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
